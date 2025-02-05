@@ -61,7 +61,7 @@ Route::resource('blog', BlogController::class);
 Route::get('/category/{id}', [CategoryController::class, 'show'])->name('category.show');
 
 
-
+//show the myposts when user is loggedin
 Route::middleware(['auth'])->group(function () {
     Route::get('/my-posts', [MyPostsController::class, 'index'])->name('myPosts.index');
 });

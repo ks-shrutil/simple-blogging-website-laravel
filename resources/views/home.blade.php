@@ -27,7 +27,7 @@
             @endforeach
         </div>
 
-        <!-- Pagination Links -->
+        <!-- pagination links -->
         <div class="d-flex justify-content-center mt-4">
             {{ $blogs->links() }}
         </div>
