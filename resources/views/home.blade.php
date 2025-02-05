@@ -13,25 +13,27 @@
         <div class="row">
             @foreach ($blogs as $blog)
                 <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm border-0 rounded">
-
+                    <div class="card shadow-sm">
                         <img src="{{ asset('storage/' . $blog->image) }}" class="card-img-top" alt="Blog Image">
-
                         <div class="card-body">
-
                             <h5 class="card-title">{{ $blog->title }}</h5>
-
-                            <!-- Limit and render content properly -->
-                            <p class="card-text">{!! Str::limit(strip_tags($blog->content), 100) !!}</p>
-
+                            <p class="card-text">{{ Str::limit($blog->content, 20) }}</p>
                             <p class="text-muted">By {{ $blog->user->name }} | {{ $blog->created_at->format('M d, Y') }}</p>
-
-                            <a href="{{ route('blog.show', $blog->id) }}" class="btn btn-success">Read More</a>
+                            <a href="{{ route('blog.show', $blog->id) }}" class="btn btn-primary">Read More</a>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
+
+        <!-- Pagination Links -->
+        <div class="d-flex justify-content-center mt-4">
+            {{ $blogs->links() }}
+        </div>
+
+
+
+
         @if ($blogs->isEmpty())
             <p class="text-center">No blogs available for this category.</p>
         @endif

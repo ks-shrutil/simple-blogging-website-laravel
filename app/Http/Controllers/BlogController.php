@@ -52,7 +52,7 @@ class BlogController extends Controller
     public function index()
     {
         // fetch the latest blogs
-        $blogs = Blog::latest()->get();
+        $blogs = Blog::latest()->paginate(4); // Show 6 blogs per page
         /*compact() creates an array where the key is 'blogs' and the value is the 
         $blogs variable (the collection of blog posts). this array is passed to 
         the view, allowing you to access the $blogs variable in the home.blade.php view file.*/

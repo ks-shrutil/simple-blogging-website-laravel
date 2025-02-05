@@ -3,8 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\View; // Add this line
-use App\Models\Category; // ✅ Make sure to import the Category model
+use Illuminate\Support\Facades\View;
+use App\Models\Category;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,7 +18,8 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        // Share categories across all views
+        Paginator::useBootstrap();
+        // share categories across all views
         View::composer('*', function ($view) {
             $view->with('categories', Category::all());
         });
