@@ -51,7 +51,6 @@
                     </li>
                 </ul>
 
-
                 <ul class="navbar-nav">
                     @guest
                         <li class="nav-item">

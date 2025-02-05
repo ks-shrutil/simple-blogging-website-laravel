@@ -6,9 +6,8 @@
         <img src="{{ asset('storage/' . $blog->image) }}" alt="Blog Image" class="img-fluid mb-4"
             style="height: 400px; object-fit: cover; display: block; margin-left: auto; margin-right: auto;">
         <center>
-            <div class="blog-content">
-                {!! $blog->content !!}
-            </div>
+            <div class="blog-content">{!! $blog->content !!}</div>
+
         </center>
         <p class="text-center text-muted">By {{ $blog->user->name }} | {{ $blog->created_at->format('M d, Y') }}</p>
 
