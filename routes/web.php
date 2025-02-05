@@ -65,3 +65,6 @@ Route::get('/category/{id}', [CategoryController::class, 'show'])->name('categor
 Route::middleware(['auth'])->group(function () {
     Route::get('/my-posts', [MyPostsController::class, 'index'])->name('myPosts.index');
 });
+
+//search
+Route::get('/search', [BlogController::class, 'search'])->name('blog.search');

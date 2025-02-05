@@ -9,18 +9,25 @@ use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
-    // Constructor to apply middleware for 'auth' to specific actions
-    // public function __construct()
-    // {
-    //     $this->middleware('auth')->only(['create', 'store', 'edit', 'update', 'destroy']);
-    // }
+    //show the home page
+    public function index()
+    {
+        // fetch the latest blogs
+        $blogs = Blog::latest()->paginate(4);
+        /*compact() creates an array where the key is 'blogs' and the value is the 
+        $blogs variable (the collection of blog posts). this array is passed to 
+        the view, allowing you to access the $blogs variable in the home.blade.php view file.*/
+        return view('home', compact('blogs'));
+    }
 
-    // Display the form for creating a new blog post
+
+    //show the create blog page
     public function create()
     {
         return view('blogs.create');
     }
 
+    //store the blog
     public function store(Request $request)
     {
         $request->validate([
@@ -47,17 +54,6 @@ class BlogController extends Controller
         return redirect('/')->with('success', 'Blog created successfully!');
     }
 
-
-
-    public function index()
-    {
-        // fetch the latest blogs
-        $blogs = Blog::latest()->paginate(4); // Show 6 blogs per page
-        /*compact() creates an array where the key is 'blogs' and the value is the 
-        $blogs variable (the collection of blog posts). this array is passed to 
-        the view, allowing you to access the $blogs variable in the home.blade.php view file.*/
-        return view('home', compact('blogs'));
-    }
 
 
     // show the details of a specific blog post
@@ -142,5 +138,23 @@ class BlogController extends Controller
         $blog->delete();
 
         return redirect('/')->with('success', 'Blog deleted successfully!');
+    }
+
+
+    public function search(Request $request)
+    {
+        //the function extracts the search query entered by the user from the request
+        $query = $request->input('query');
+
+        //condition checks if the title contains the search term
+        $blogs = Blog::where('title', 'LIKE', "%{$query}%")
+
+            //condition checks if the content contains the search term
+            /*the %{$query}% in LIKE ensures a partial match, meaning it finds 
+        results where the title or content contains the search term anywhere*/
+            ->orWhere('content', 'LIKE', "%{$query}%")
+            ->paginate(4);
+
+        return view('home', compact('blogs', 'query'));
     }
 }

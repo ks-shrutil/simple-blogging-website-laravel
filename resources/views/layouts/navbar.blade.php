@@ -18,6 +18,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
+            
             <a class="navbar-brand" href="/">My Blog</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -49,6 +50,11 @@
                             @endforeach
                         </ul>
                     </li>
+                    <form action="{{ route('blog.search') }}" method="GET" class="d-flex">
+                        <input class="form-control me-2" type="search" name="query" placeholder="Search blogs..." value="{{ request('query') }}">
+                        <button class="btn btn-outline-light" type="submit">Search</button>
+                    </form>
+                    
                 </ul>
 
                 <ul class="navbar-nav">
