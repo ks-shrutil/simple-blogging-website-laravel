@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\Category;
-use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {

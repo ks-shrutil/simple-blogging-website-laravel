@@ -4,12 +4,17 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
-use App\Models\Category;
 use Illuminate\Pagination\Paginator;
+use App\Models\Category;
+use App\Models\User;
+use App\Policies\UserPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
-
+    protected $policies = [
+        User::class => UserPolicy::class,
+    ];
+    
     public function register(): void
     {
         //
@@ -23,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $view->with('categories', Category::all());
         });
+        
     }
 }
