@@ -17,7 +17,9 @@
             @foreach ($blogs as $blog)
                 <div class="col-md-4 mb-4">
                     <div class="card shadow-sm">
-                        <img src="{{ asset('storage/' . $blog->image) }}" class="card-img-top" alt="Blog Image">
+                        {{-- <img src="{{ asset('storage/' . $blog->image) }}" class="card-img-top" alt="Blog Image"> --}}
+                        <img src="{{ Storage::url('public/' . $blog->image) }}" class="card-img-top" alt="Blog Image">
+
                         <div class="card-body">
                             <h5 class="card-title">{{ $blog->title }}</h5>
                             {{-- if $blog->content contains HTML tags, using {!! ... !!} allows them to be 

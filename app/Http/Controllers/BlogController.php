@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
@@ -105,11 +106,12 @@ class BlogController extends Controller
         // if a new image is uploaded, delete the old one and save the new one
         if ($request->hasFile('image')) {
 
-            // file_exists Checks whether a file or directory exists
-            if ($blog->image && file_exists(public_path('storage/' . $blog->image))) {
-                //unlink() is used to delete the file
-                unlink(public_path('storage/' . $blog->image));
-            }
+
+
+        if ($blog->image && Storage::exists('public/' . $blog->image)) {
+            Storage::delete('public/' . $blog->image);
+        }
+
 
             // store new image
             $imagePath = $request->file('image')->store('blog_images', 'public');
